@@ -9,30 +9,21 @@ async function loadLayout() {
 // Generate post list for the home page
 async function generatePostList() {
     const postList = document.getElementById('post-list');
-    const posts = ['the-story-of-deputymods.md']; // Add your posts here
+    const posts = [
+        { title: "The Story of DeputyMods", link: "/DeputyBlogs/posts/the-story-of-deputymods.html" }
+    ];
 
     posts.forEach(post => {
-        const postName = post.replace('.md', '').replace(/-/g, ' ');
         const listItem = document.createElement('li');
-        listItem.innerHTML = `<a href="/DeputyBlogs/posts/${post}">${postName}</a>`;
+        listItem.innerHTML = `<a href="${post.link}" class="post-link">${post.title}</a>`;
         postList.appendChild(listItem);
     });
-}
-
-// Render a Markdown file into HTML
-async function renderMarkdown(postPath) {
-    const content = await fetch(postPath).then(res => res.text());
-    const html = marked(content); // Using `marked` library to parse Markdown
-    document.querySelector('main').innerHTML = html;
 }
 
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
     loadLayout();
-    if (location.pathname === '/DeputyBlogs/index.html' || location.pathname === '/DeputyBlogs/') {
+    if (location.pathname === 'index.html' || location.pathname === '/DeputyBlogs/') {
         generatePostList();
-    } else if (location.pathname.includes('/DeputyBlogs/posts/')) {
-        const postPath = location.pathname;
-        renderMarkdown(postPath);
     }
 });
