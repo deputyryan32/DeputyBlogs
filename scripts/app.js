@@ -19,21 +19,21 @@ async function generatePostList() {
         postList.appendChild(listItem);
     });
 
-    // Add click event listeners for loading posts
+    // Add click event listeners for rendering full posts
     document.querySelectorAll('.post-link').forEach(link => {
         link.addEventListener('click', async (e) => {
             e.preventDefault();
             const postPath = e.target.dataset.post;
-            renderMarkdown(postPath);
+            renderFullPost(postPath);
         });
     });
 }
 
-// Render a Markdown file into HTML
-async function renderMarkdown(postPath) {
+// Render a Markdown file into the full post view
+async function renderFullPost(postPath) {
     const content = await fetch(postPath).then(res => res.text());
     const html = marked(content); // Using `marked` library to parse Markdown
-    document.querySelector('main').innerHTML = html;
+    document.getElementById('post-content').innerHTML = html;
 }
 
 // Initialize the app
