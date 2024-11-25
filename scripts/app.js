@@ -1,7 +1,7 @@
 // Fetch and insert layout components
 async function loadLayout() {
-    const navbar = await fetch('/layout/nav.html').then(res => res.text());
-    const footer = await fetch('/layout/footer.html').then(res => res.text());
+    const navbar = await fetch('/DeputyBlogs/layout/nav.html').then(res => res.text());
+    const footer = await fetch('/DeputyBlogs/layout/footer.html').then(res => res.text());
     document.getElementById('navbar').innerHTML = navbar;
     document.getElementById('footer').innerHTML = footer;
 }
@@ -9,12 +9,12 @@ async function loadLayout() {
 // Generate post list for the home page
 async function generatePostList() {
     const postList = document.getElementById('post-list');
-    const posts = ['post1.md', 'post2.md']; // Add your posts here
+    const posts = ['the-story-of-deputymods.md']; // Add your posts here
 
     posts.forEach(post => {
         const postName = post.replace('.md', '').replace(/-/g, ' ');
         const listItem = document.createElement('li');
-        listItem.innerHTML = `<a href="/posts/${post}">${postName}</a>`;
+        listItem.innerHTML = `<a href="/DeputyBlogs/posts/${post}">${postName}</a>`;
         postList.appendChild(listItem);
     });
 }
@@ -29,9 +29,9 @@ async function renderMarkdown(postPath) {
 // Initialize the app
 document.addEventListener('DOMContentLoaded', () => {
     loadLayout();
-    if (location.pathname === '/index.html' || location.pathname === '/') {
+    if (location.pathname === '/DeputyBlogs/index.html' || location.pathname === '/DeputyBlogs/') {
         generatePostList();
-    } else if (location.pathname.includes('/posts/')) {
+    } else if (location.pathname.includes('/DeputyBlogs/posts/')) {
         const postPath = location.pathname;
         renderMarkdown(postPath);
     }
